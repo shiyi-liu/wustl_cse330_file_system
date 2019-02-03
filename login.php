@@ -23,14 +23,14 @@
                 $usrnm=$_GET['usrnm'];
 
                 //validate username
-                $ul=fopen('/home/tina.liu/module2_files/user_list.txt','r');//open user list
+                $ul=fopen('/home/crazyphysicist/module2_files/user_list.txt','r');//open user list
                 
                 while(!feof($ul))
                 {
                     if($usrnm==trim(fgets($ul)))
                     {
                         echo("$usrnm");
-                        header('LOCATION:main.php');//redirect to main page if username validated
+                        header('LOCATION:main.php?feedback=""');//redirect to main page if username validated
                         exit;
                     }
                 }

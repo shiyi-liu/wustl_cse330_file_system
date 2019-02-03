@@ -14,7 +14,7 @@
         session_start();
         $usrnm=$_SESSION['usrnm'];
 
-        $dir='/home/tina.liu/module2_files/'."$usrnm"; //set the user's directory 
+        $dir='/home/crazyphysicist/module2_files/'."$usrnm"; //set the user's directory 
         $_SESSION['dir']=$dir; //store user dir path for future use
 
         //display user's filelist
@@ -80,7 +80,36 @@
 	<p>
 		<input type="submit" value="Upload File" />
 	</p>
-</form> 
-        
+    </form> 
+
+    <?php
+    $feedback = $_GET["feedback"];
+    switch($feedback){
+    case "uploadsuccess":
+        echo "Upload Success!";
+        break;
+    case "uploadfail":
+        echo "Upload Failed!";
+        break;
+    case "deletesuccess":
+        echo "Delete Success!";
+        break;
+    default:
+        break;
+    }
+    
+    ?>
+    
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
+            <input type="submit" name='btn' class="btn" value="Log out">
+    </form>
+    <?php
+
+    if(isset($_GET['btn'])){
+        session_destroy();
+        header('LOCATION: login.php?loggedout');
+
+    }
+    ?>
     </body>
 </html>
