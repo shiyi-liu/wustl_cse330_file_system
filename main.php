@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>CSE330 Module 2 site main page</title>
+        <link rel="stylesheet" type="text/css" href="filesite.css">
     </head>
     <body>
         <h2>Welcome 
@@ -15,7 +16,7 @@
 
         </h2>
 
-        <h3>Your files: </h3>
+        <h3>Your Files: </h3>
         <form name='files' action='main.php' method='POST'>
         </form>
     <?php
@@ -31,7 +32,7 @@
                     echo($value."<br/>");
                 }
             }
-            echo('===========End of file list=============');
+            echo('===========End of File List=============');
             $_SESSION['fl']=$fl; //store it as session var for future use
         }
         else{
@@ -119,23 +120,61 @@
             <input type="submit" name='btn' class="btn" value="Log out">
     </form>
 
+    <!--
     <p></p>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
             <input type="submit" name='btn2' class="btn2" value="Delete account">
     </form>
+    -->
 
     <?php
-
     if(isset($_GET['btn'])){
         session_destroy();
         header('LOCATION: login.php?loggedout');
     }
 
+    /*
     if(isset($_GET['btn2'])){
-        session_destroy();
+        $ul=fopen('/home/crazyphysicist/module2_files/user_list.txt','r');
+        $newlist = fopen('/home/crazyphysicist/module2_files/user_list2.txt','w');
+        while(!feof($ul)){
+            $temp = fgets($ul);
+            fwrite($newlist, $temp);
+            echo $temp;
+        }
+        fclose($ul);
         
+        unlink('/home/crazyphysicist/module2_files/user_list.txt');
+        $final=fopen('/home/crazyphysicist/module2_files/user_list.txt','w');
+        while (!feof($newlist)) {
+            $temp = fgets($newlist);
+            fwrite($final, $temp);
+            echo $temp;
+        }
+        
+        fclose($ul);
+        fclose($newlist);
+        unlink($newlist);
+        array_map('unlink', glob("/home/crazyphysicist/module2_files/".$usrnm.":*.*")); //StackOverflow
+        rmdir("/home/crazyphysicist/module2_files/".$usrnm);
+        session_destroy();
         header('LOCATION: login.php?loggedout');
     }
+    */
+    ?>
+
+    <br>
+
+    <?php
+    if($_SESSION['admin']==true){
+        echo "~~~~~Admin Privilege~~~~~<br>";
+        echo "Users: ";
+        $ul=fopen('/home/crazyphysicist/module2_files/user_list.txt','r');
+        while(!feof($ul)){
+            echo fgets($ul)."<br>";
+        }
+    }
+    
     ?>
     </body>
 </html>

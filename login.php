@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>CSE330 Module 2 site</title>
+        <link rel="stylesheet" type="text/css" href="filesite.css">
     </head>
     <body>
         <!--this file create the login page users will see initially-->
@@ -15,6 +16,7 @@
         <br>
     </body>
     <?php
+        $_SESSION['admin']=false; //why do I need multiple of these?
         if(isset($_GET['btn'])){ //if the button pressed check if filled
             if (!empty($_GET['usrnm'])) //check if username filled
             {
@@ -25,12 +27,25 @@
 
                 //validate username
                 $ul=fopen('/home/crazyphysicist/module2_files/user_list.txt','r');//open user list
-                
+                $vl=fopen('/home/crazyphysicist/module2_files/admin_list.txt','r');
+                while(!feof($vl))
+                {
+                    if($usrnm==trim(fgets($vl)))
+                    {
+                        $_SESSION['admin']=true;
+                        header('LOCATION:main.php?feedback=""');//redirect to main page if username validated
+                        exit;
+                    }
+                }
                 while(!feof($ul))
                 {
                     if($usrnm==trim(fgets($ul)))
                     {
+                        /*if($usrnm==="tina"){
+                            header('LOCATION:main.php?feedback="admin"');
+                        }*/
                         //echo("$usrnm");
+                        $_SESSION['admin']=false;
                         header('LOCATION:main.php?feedback=""');//redirect to main page if username validated
                         exit;
                     }
@@ -45,6 +60,7 @@
     
     ?>
     <?php
+        $_SESSION['admin']=false;
         if(isset($_GET['btn2'])){ //if the button pressed check if filled
             if (!empty($_GET['usrnm'])) //check if username filled
             {
@@ -58,6 +74,7 @@
                 fwrite($ul,"\n".$usrnm);
                 mkdir("/home/crazyphysicist/module2_files/".$usrnm);
                 fclose($ul);
+                $_SESSION['admin']=false;
                 header('LOCATION:main.php?feedback=""');//redirect to main page
             }
             else{
