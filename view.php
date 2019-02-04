@@ -2,7 +2,6 @@
 session_start();
 
 $filename = $_POST['file'];
-
 // We need to make sure that the filename is in a valid format; if it's not, display an error and leave the script.
 // To perform the check, we will use a regular expression.
 if( !preg_match('/^[\w_\.\-]+$/', $filename) ){
@@ -28,6 +27,7 @@ $mime = $finfo->file($full_path);
 
 // Finally, set the Content-Type header to the MIME type of the file, and display the file.
 header("Content-Type: ".$mime);
+header('Content-disposition: attachment; filename='.$filename);
 readfile($full_path);
 
 ?>

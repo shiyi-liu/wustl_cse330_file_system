@@ -2,18 +2,23 @@
 <html lang="en"> 
     <head>
         <meta charset="UTF-8">
-        <title>cse330 Module 2 site main page</title>
+        <title>CSE330 Module 2 site main page</title>
     </head>
     <body>
-        <h3>Welcome to file sharing site!</h3>
-        <p>The file list is: </p>
+        <h2>Welcome 
+        
+        <?php //initialize
+        session_start();
+        $usrnm=$_SESSION['usrnm'];
+        echo $usrnm;
+        ?>!
+
+        </h2>
+
+        <h3>Your files: </h3>
         <form name='files' action='main.php' method='POST'>
         </form>
     <?php
-        //initialize
-        session_start();
-        $usrnm=$_SESSION['usrnm'];
-
         $dir='/home/crazyphysicist/module2_files/'."$usrnm"; //set the user's directory 
         $_SESSION['dir']=$dir; //store user dir path for future use
 
@@ -26,7 +31,7 @@
                     echo($value."<br/>");
                 }
             }
-            echo('===========The end of your file list=============');
+            echo('===========End of file list=============');
             $_SESSION['fl']=$fl; //store it as session var for future use
         }
         else{
@@ -94,21 +99,42 @@
     case "deletesuccess":
         echo "Delete Success!";
         break;
+    case "invalidf":
+        echo "Invalid Filename!";
+        break;
+    case "invalidu":
+        echo "Invalid Username!";
+        break;
+    case "toobig":
+        echo "File Too Big!";
+        break;
     default:
         break;
     }
     
     ?>
-    
+
+    <p></p>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
             <input type="submit" name='btn' class="btn" value="Log out">
     </form>
+
+    <p></p>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
+            <input type="submit" name='btn2' class="btn2" value="Delete account">
+    </form>
+
     <?php
 
     if(isset($_GET['btn'])){
         session_destroy();
         header('LOCATION: login.php?loggedout');
+    }
 
+    if(isset($_GET['btn2'])){
+        session_destroy();
+        
+        header('LOCATION: login.php?loggedout');
     }
     ?>
     </body>
