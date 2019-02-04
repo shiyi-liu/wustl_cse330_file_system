@@ -1,4 +1,4 @@
-site address: http://ec2-3-17-24-144.us-east-2.compute.amazonaws.com/~tina.liu/module2/login.php
+site address: 
 
 http://ec2-52-14-145-130.us-east-2.compute.amazonaws.com/~crazyphysicist/module2/login.php
 
