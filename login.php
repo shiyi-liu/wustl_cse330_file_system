@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>CSE330 Module 2 site</title>
-        <link rel="stylesheet" type="text/css" href="filesite.css">
+        <link rel="stylesheet" type="text/css" href="filesite2.css">
     </head>
     <body>
         <!--this file create the login page users will see initially-->
@@ -14,7 +14,7 @@
             <input type="submit" name='btn2' class="btn2" value="Create account">
         </form>
         <br>
-    </body>
+    <!--For logging in:-->
     <?php
         $_SESSION['admin']=false; //why do I need multiple of these?
         if(isset($_GET['btn'])){ //if the button pressed check if filled
@@ -22,8 +22,8 @@
             {
                 session_start(); //start a session for this user
 
-                $_SESSION['usrnm']=$_GET['usrnm'];
-                $usrnm=$_GET['usrnm'];
+                $_SESSION['usrnm']=htmlentities($_GET['usrnm']);
+                $usrnm=htmlentities($_GET['usrnm']);
 
                 //validate username
                 $ul=fopen('/home/crazyphysicist/module2_files/user_list.txt','r');//open user list
@@ -41,10 +41,6 @@
                 {
                     if($usrnm==trim(fgets($ul)))
                     {
-                        /*if($usrnm==="tina"){
-                            header('LOCATION:main.php?feedback="admin"');
-                        }*/
-                        //echo("$usrnm");
                         $_SESSION['admin']=false;
                         header('LOCATION:main.php?feedback=""');//redirect to main page if username validated
                         exit;
@@ -59,6 +55,8 @@
         }
     
     ?>
+
+    <!--For creating an account:-->
     <?php
         $_SESSION['admin']=false;
         if(isset($_GET['btn2'])){ //if the button pressed check if filled
@@ -66,8 +64,8 @@
             {
                 session_start(); //start a session for this user
 
-                $_SESSION['usrnm']=$_GET['usrnm'];
-                $usrnm=$_GET['usrnm'];
+                $_SESSION['usrnm']=htmlentities($_GET['usrnm']);
+                $usrnm=htmlentities($_GET['usrnm']);
 
                 //validate username
                 $ul=fopen('/home/crazyphysicist/module2_files/user_list.txt','a');//open user list
@@ -83,4 +81,5 @@
         }
     
     ?>
+    </body>
 </html>

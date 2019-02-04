@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>CSE330 Module 2 site main page</title>
-        <link rel="stylesheet" type="text/css" href="filesite.css">
+        <link rel="stylesheet" type="text/css" href="filesite2.css">
     </head>
     <body>
         <h2>Welcome 
@@ -88,6 +88,7 @@
 	</p>
     </form> 
 
+    <!--Displays feedback-->
     <?php
     $feedback = $_GET["feedback"];
     switch($feedback){
@@ -115,6 +116,7 @@
     
     ?>
 
+    <!--Logout-->
     <p></p>
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
             <input type="submit" name='btn' class="btn" value="Log out">
@@ -165,6 +167,7 @@
 
     <br>
 
+    <!--Admin privilege to see all users-->
     <?php
     if($_SESSION['admin']==true){
         echo "~~~~~Admin Privilege~~~~~<br>";

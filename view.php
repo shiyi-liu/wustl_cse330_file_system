@@ -27,7 +27,7 @@ $mime = $finfo->file($full_path);
 
 // Finally, set the Content-Type header to the MIME type of the file, and display the file.
 header("Content-Type: ".$mime);
-header('Content-disposition: attachment; filename='.$filename);
+header('Content-disposition: attachment; filename='.$filename); //from StackOverflow
 readfile($full_path);
 
 ?>
